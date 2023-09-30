@@ -1,3 +1,8 @@
+variable "environment" {
+  type        = string
+  description = ""
+}
+
 variable "aws_region" {
   type        = string
   description = ""
@@ -21,5 +26,6 @@ variable "instance_tags" {
   default = {
     Name    = "Ubuntu"
     Project = "AWS Course with Terraform"
+    Env     = "Dev"
   }
 }
