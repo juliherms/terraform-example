@@ -25,14 +25,8 @@ resource "aws_s3_bucket" "my-test-bucket" {
   # Exemplo de como o nome criar um bucket dinâmico e com random
   bucket = "${random_pet.bucket.id}-${var.environment}"
 
-
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-    Managedby   = "Terraform"
-    Owner       = "Juliherms Vasconcelos"
-    UpdatedAt   = "2023-09-30"
-  }
+  # carrega as tag comuns do arquivo locals.tf
+  tags = local.common_tags
 }
 
 # Cria uma relacao de acesso ao bucket s3
@@ -48,5 +42,13 @@ resource "aws_s3_bucket_acl" "acl" {
 
   bucket = aws_s3_bucket.my-test-bucket.id
   acl    = "private"
+}
+
+# Cria um objeto no bucket s3 como exemplo
+resource "aws_s3_object" "name" {
+  bucket = aws_s3_bucket.my-test-bucket.bucket
+  key    = "config/${local.ip_filepath}"
+  source = local.ip_filepath
+  etag   = filemd5(local.ip_filepath)
 }
 
