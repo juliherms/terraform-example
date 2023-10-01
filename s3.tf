@@ -7,6 +7,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.15.0"
     }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "3.5.1"
+    }
   }
 }
 
@@ -15,7 +20,11 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "my-test-bucket" {
-  bucket = "my-tf-test-bucket-102934949"
+  # bucket = "my-tf-test-bucket-102934949"
+
+  # Exemplo de como o nome criar um bucket dinâmico e com random
+  bucket = "${random_pet.bucket.id}-${var.environment}"
+
 
   tags = {
     Name        = "My bucket"
