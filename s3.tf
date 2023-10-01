@@ -46,10 +46,10 @@ resource "aws_s3_bucket_acl" "acl" {
 
 # Cria um objeto no bucket s3 como exemplo
 resource "aws_s3_object" "this" {
-  bucket = aws_s3_bucket.my-test-bucket.bucket
-  key    = "config/${local.ip_filepath}"
-  source = local.ip_filepath
-  etag   = filemd5(local.ip_filepath)
+  bucket       = aws_s3_bucket.my-test-bucket.bucket
+  key          = "config/${local.ip_filepath}"
+  source       = local.ip_filepath
+  etag         = filemd5(local.ip_filepath)
   content_type = "application/json"
 }
 
